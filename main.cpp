@@ -15,10 +15,10 @@ int main() {
 	std::ifstream inputFile;
 	inputFile.open("input.txt");
 
-	if (!inputFile.is_open()) {
+	if (!inputFile.is_open()) { 						//checks if the file´s not open
 		std::cout << "File not present!" << std::endl;
 	} else {
-		while (!inputFile.eof()) {
+		while (!inputFile.eof()){						//checks if it is the end of the file.
 
 		}
 	}
