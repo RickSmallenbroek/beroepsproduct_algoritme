@@ -12,10 +12,9 @@
 #include <Algorithm>
 #include "JobShop.h"
 #include "Job.h"
+#include "Machine.h"
 
-JobShop::JobShop()
-: nrMachines(0)
-{
+JobShop::JobShop() {
 	// TODO Auto-generated constructor stub
 
 }
@@ -54,13 +53,11 @@ void JobShop::createSchedule() {
 void JobShop::assignMachines() {
 }
 
-Job JobShop::getLeastSlackJob(const std::vector<Job&> conflictingJobs) {
+Job& JobShop::getLeastSlackJob(const std::vector<Job>& conflictingJobs) {
+
 }
 
 const std::vector<Job>& JobShop::getJobs() const {
 return Jobs;
 }
 
-unsigned short JobShop::getNrMachines() const {
-return nrMachines;
-}

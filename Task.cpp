@@ -8,12 +8,11 @@
 #include "Task.h"
 
 Task::Task()
-:machine(0), duration(0)
 {
 	// TODO Auto-generated constructor stub
 }
 
-Task::Task(const unsigned short a_machine, const unsigned short a_duration)
+Task::Task(const Machine a_machine, const unsigned short a_duration)
 :machine(a_machine), duration(a_duration)
 {
 }
@@ -44,7 +43,7 @@ const unsigned short Task::getDuration() const {
 	return duration;
 }
 
-const unsigned short Task::getMachine() const {
+const Machine Task::getMachine() const {
 	return machine;
 }
 

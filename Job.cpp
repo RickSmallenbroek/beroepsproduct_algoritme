@@ -7,6 +7,7 @@
 
 #include "Job.h"
 #include "Task.h"
+#include "Machine.h"
 #include <vector>
 #include <map>
 #include <Algorithm>
@@ -16,9 +17,9 @@ Job::Job() {
 
 }
 
-Job::Job(std::map<unsigned short, unsigned short> a_tasks) {
+Job::Job(std::map<Machine, unsigned short> a_tasks) {
 	for(const auto& pair : a_tasks){
-		Task temp(pair.first(), pair.second());
+		Task temp(pair.first, pair.second);
 		Tasks.push_back(temp);
 	}
 }
@@ -45,9 +46,11 @@ Job::~Job() {
 //}
 
 unsigned short Job::getNextMachine() {
+	return 0;
 }
 
 unsigned short Job::getTotalRemainingDuration() {
+	return 0;
 }
 
 void Job::printJobOutput() {

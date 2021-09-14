@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include "Job.h"
+#include "Machine.h"
 
 class JobShop {
 public:
@@ -26,14 +27,15 @@ public:
 	//Methods
 	void createSchedule();
 	void assignMachines();
-	Job getLeastSlackJob(const std::vector<Job&> conflictingJobs);
+	Job& getLeastSlackJob(const std::vector<Job>& conflictingJobs);
 
 	//Getters & Setters
 	const std::vector<Job>& getJobs() const;
 	unsigned short getNrMachines() const;
 
+private:
 	//Attributes
-	unsigned short nrMachines;
+	std::vector<Machine> Machines;
 	std::vector<Job> Jobs;
 };
 

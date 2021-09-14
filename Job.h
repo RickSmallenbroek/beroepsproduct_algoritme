@@ -10,12 +10,13 @@
 #include <vector>
 #include <map>
 #include "Task.h"
+#include "Machine.h"
 
 class Job {
 public:
 	//Constructors & Destructor
 	Job();
-	Job(std::map<unsigned short, unsigned short> a_tasks);
+	Job(std::map<Machine, unsigned short> a_tasks);
 	virtual ~Job();
 
 	//Operators
@@ -33,6 +34,7 @@ public:
 	unsigned short getEndTime() const;
 	unsigned short getStartTime() const;
 
+private:
 	//Attributes
 	std::vector<Task> Tasks;
 	unsigned short startTime;
