@@ -18,7 +18,7 @@ Job::Job() {
 
 Job::Job(std::map<unsigned short, unsigned short> a_tasks) {
 	for(const auto& pair : a_tasks){
-		Task temp(pair.first(), pair.second());
+		Task temp(pair.first, pair.second);
 		Tasks.push_back(temp);
 	}
 }

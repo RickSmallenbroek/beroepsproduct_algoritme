@@ -26,7 +26,7 @@ public:
 	//Methods
 	void createSchedule();
 	void assignMachines();
-	Job getLeastSlackJob(const std::vector<Job&> conflictingJobs);
+	Job getLeastSlackJob(const std::vector<Job>& conflictingJobs);
 
 	//Getters & Setters
 	const std::vector<Job>& getJobs() const;

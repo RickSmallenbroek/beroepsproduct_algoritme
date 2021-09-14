@@ -54,7 +54,7 @@ void JobShop::createSchedule() {
 void JobShop::assignMachines() {
 }
 
-Job JobShop::getLeastSlackJob(const std::vector<Job&> conflictingJobs) {
+Job JobShop::getLeastSlackJob(const std::vector<Job>& conflictingJobs) {
 }
 
 const std::vector<Job>& JobShop::getJobs() const {
