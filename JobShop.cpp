@@ -26,7 +26,7 @@ JobShop::JobShop() {
 JobShop::JobShop(std::ifstream &input) {
 	int jobsCount;
 	int machinesCount;
-	int num;
+//	int num;
 	input >> jobsCount;
 	input >> machinesCount;
 	std::cout << "jobs: " << jobsCount << " machines: " << machinesCount << std::endl;

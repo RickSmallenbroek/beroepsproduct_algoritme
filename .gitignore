@@ -2,3 +2,4 @@
 *.o
 Debug/Job.o
 *.o
+.settings/language.settings.xml
