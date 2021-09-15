@@ -6,6 +6,7 @@
  */
 
 #include "Task.h"
+#include <iostream>
 
 Task::Task()
 {
@@ -15,6 +16,7 @@ Task::Task()
 Task::Task(const Machine a_machine, const unsigned short a_duration)
 :machine(a_machine), duration(a_duration)
 {
+	std::cout << machine.getId() << "-" << duration << " ";
 }
 
 Task::~Task() {

@@ -17,10 +17,9 @@ Job::Job() {
 
 }
 
-Job::Job(std::map<Machine, unsigned short> a_tasks) {
-	for(const auto& pair : a_tasks){
-		Task temp(pair.first, pair.second);
-		Tasks.push_back(temp);
+Job::Job(const std::vector<Machine>& machines, const std::vector<unsigned short>& durations) {
+	for(int i = 0; i < machines.size(); i++){
+		Tasks.push_back(Task(machines.at(i), durations.at(i)));
 	}
 }
 

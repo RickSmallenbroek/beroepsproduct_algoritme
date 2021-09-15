@@ -32,7 +32,23 @@ JobShop::JobShop(std::ifstream &input) {
 	std::cout << "jobs: " << jobsCount << " machines: " << machinesCount << std::endl;
 
 	for(int i = 0; i < machinesCount; ++i){
-//		Machines.push_back(i);
+		Machines.push_back(Machine(i));
+	}
+
+	for(int i = 0; i < jobsCount; i++){
+		std::vector<Machine> machines;
+		std::vector<unsigned short> durations;
+		for(int j = 0; j < machinesCount; j++){
+			unsigned short machineId;
+			unsigned short duration;
+			input >> machineId;
+			input >> duration;
+			machines.push_back(Machines[machineId]);
+			durations.push_back(duration);
+		}
+		std::cout << i << ": ";
+		Jobs.push_back(Job(machines, durations));
+		std::cout << std::endl;
 	}
 
 	input.close();

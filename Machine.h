@@ -12,12 +12,15 @@ class Machine {
 public:
 	//Constructor & Destructor
 	Machine();
+	Machine(const unsigned short a_id);
 	virtual ~Machine();
 
 	//Getters & Setters
 	bool isUsed() const;
+	unsigned short getId() const;
 
 private:
+	unsigned short id;
 	bool used;
 };
 
