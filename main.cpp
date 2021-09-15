@@ -17,10 +17,8 @@ int main() {
 
 	if (!inputFile.is_open()) { 						//checks if the file´s not open
 		std::cout << "File not present!" << std::endl;
-	} else {
-		while (!inputFile.eof()){						//checks if it is the end of the file.
-
-		}
+	} else {						//checks if it is the end of the file.
+		JobShop jobs(inputFile);
 	}
 
 	return 0;

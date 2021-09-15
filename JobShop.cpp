@@ -8,8 +8,12 @@
 #include <fstream>
 #include <iostream>
 #include <istream>
+#include <sstream>
+#include <string>
 #include <vector>
+#include <array>
 #include <Algorithm>
+
 #include "JobShop.h"
 #include "Job.h"
 #include "Machine.h"
@@ -19,8 +23,20 @@ JobShop::JobShop() {
 
 }
 
-JobShop::JobShop(std::ifstream& input) {
+JobShop::JobShop(std::ifstream &input) {
+	int jobsCount;
+	int machinesCount;
+	int num;
+	input >> jobsCount;
+	input >> machinesCount;
+	std::cout << "jobs: " << jobsCount << " machines: " << machinesCount << std::endl;
 
+	for(int i = 0; i < machinesCount; ++i){
+//		Machines.push_back(i);
+	}
+
+	input.close();
+	std::cout << "End-of-file reached.." << std::endl;
 }
 
 JobShop::~JobShop() {
@@ -53,11 +69,11 @@ void JobShop::createSchedule() {
 void JobShop::assignMachines() {
 }
 
-Job& JobShop::getLeastSlackJob(const std::vector<Job>& conflictingJobs) {
+Job& JobShop::getLeastSlackJob(const std::vector<Job> &conflictingJobs) {
 
 }
 
 const std::vector<Job>& JobShop::getJobs() const {
-return Jobs;
+	return Jobs;
 }
 
