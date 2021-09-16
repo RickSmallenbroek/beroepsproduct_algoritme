@@ -55,7 +55,7 @@ unsigned short Job::getTotalRemainingDuration() {
 			totalDuration += task.getDuration();
 		}
 	}
-	return 0;
+	return totalDuration;
 }
 
 void Job::printJobOutput() {

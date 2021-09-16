@@ -84,8 +84,16 @@ void JobShop::createSchedule() {
 void JobShop::assignMachines() {
 }
 
-Job& JobShop::getLeastSlackJob(const std::vector<Job> &conflictingJobs) {
-
+//Hij loopt door de gegeven Jobs heen om daar de Job die de Critical Path vormt te returnen
+Job& JobShop::getLeastSlackJob(std::vector<Job> &conflictingJobs) {
+	Job& longestJob = conflictingJobs[0];
+	unsigned short longestJobDuration = longestJob.getTotalRemainingDuration();
+	for(auto i = 1; i < conflictingJobs.size(); i++){
+		if(longestJobDuration < conflictingJobs[i].getTotalRemainingDuration()){
+			longestJob = conflictingJobs[i];
+		}
+	}
+	return longestJob;
 }
 
 const std::vector<Job>& JobShop::getJobs() const {
