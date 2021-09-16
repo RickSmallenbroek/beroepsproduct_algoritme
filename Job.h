@@ -16,7 +16,7 @@ class Job {
 public:
 	//Constructors & Destructor
 	Job();
-	Job(std::map<Machine, unsigned short> a_tasks);
+	Job(const std::vector<Machine>& machines, const std::vector<unsigned short>& durations);
 	virtual ~Job();
 
 	//Operators
