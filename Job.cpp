@@ -8,13 +8,13 @@
 #include "Job.h"
 #include "Task.h"
 #include "Machine.h"
+#include <iostream>
 #include <vector>
 #include <map>
 #include <Algorithm>
 
 Job::Job() {
 	// TODO Auto-generated constructor stub
-
 }
 
 Job::Job(const std::vector<Machine>& machines, const std::vector<unsigned short>& durations) {
@@ -49,6 +49,13 @@ unsigned short Job::getNextMachine() {
 }
 
 unsigned short Job::getTotalRemainingDuration() {
+	short totalDuration = 0;
+	for(const auto task : Tasks){
+		if(!task.isTaskCompleted()){
+			totalDuration += task.getDuration();
+		}
+	}
+	std::cout << totalDuration << std::endl;
 	return 0;
 }
 

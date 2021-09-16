@@ -50,7 +50,6 @@ JobShop::JobShop(std::ifstream &input) {
 		Jobs.push_back(Job(machines, durations));
 		std::cout << std::endl;
 	}
-
 	input.close();
 	std::cout << "End-of-file reached.." << std::endl;
 }
