@@ -55,7 +55,6 @@ unsigned short Job::getTotalRemainingDuration() {
 			totalDuration += task.getDuration();
 		}
 	}
-	std::cout << totalDuration << std::endl;
 	return 0;
 }
 
