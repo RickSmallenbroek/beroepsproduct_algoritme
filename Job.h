@@ -25,7 +25,7 @@ public:
 //	Job& operator=(const Job& rhs);
 
 	//Methods
-	unsigned short getNextMachine();
+	Machine getNextMachine();
 	unsigned short getTotalRemainingDuration();
 	void printJobOutput();
 
