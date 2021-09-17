@@ -14,7 +14,7 @@ class Task {
 public:
 	//Constructors & Destructor
 	Task();
-	Task(const Machine a_machine, const unsigned short a_duration);
+	Task(const Machine& a_machine, const unsigned short a_duration);
 	virtual ~Task();
 
 	//Operators
@@ -24,7 +24,7 @@ public:
 
 	//Getters & Setters
 	const unsigned short getDuration() const;
-	const Machine getMachine() const;
+	const Machine& getMachine() const;
 	unsigned short getStartTime() const;
 	void setStartTime(unsigned short startTime);
 	bool isTaskCompleted() const;

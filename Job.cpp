@@ -44,8 +44,14 @@ Job::~Job() {
 //	return *this;
 //}
 
-unsigned short Job::getNextMachine() {
-	return 0;
+Machine Job::getNextMachine() {
+
+	auto inQueue = [](const Task& task){
+		return !task.isTaskCompleted();
+	};
+
+	auto result = std::find_if(Tasks.begin(), Tasks.end(), inQueue);
+	return result->getMachine();
 }
 
 unsigned short Job::getTotalRemainingDuration() {

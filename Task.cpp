@@ -13,7 +13,7 @@ Task::Task()
 	// TODO Auto-generated constructor stub
 }
 
-Task::Task(const Machine a_machine, const unsigned short a_duration)
+Task::Task(const Machine& a_machine, const unsigned short a_duration)
 :machine(a_machine), duration(a_duration)
 {
 	std::cout << machine.getId() << "-" << duration << " ";
@@ -45,7 +45,7 @@ const unsigned short Task::getDuration() const {
 	return duration;
 }
 
-const Machine Task::getMachine() const {
+const Machine& Task::getMachine() const {
 	return machine;
 }
 
