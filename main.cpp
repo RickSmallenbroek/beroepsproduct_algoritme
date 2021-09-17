@@ -12,8 +12,11 @@
 #include <string>
 
 int main() {
+	std::string fileName;
+	std::cout << "Enter the file name: ";
+	std::cin >> fileName;
 	std::ifstream inputFile;
-	inputFile.open("input.txt");
+	inputFile.open(fileName);
 
 	if (!inputFile.is_open()) { 						//checks if the file´s not open
 		std::cout << "File not present!" << std::endl;
