@@ -13,17 +13,12 @@
 class Task {
 public:
 	//Constructors & Destructor
-	Task(Machine& a_machine, const unsigned short a_duration);
+	Task(const unsigned short a_machineId, const unsigned short a_duration);
 	virtual ~Task();
-
-	//Operators
-//	bool operator==(const Task& rhs) const;
-//	bool operator<(const Task& rhs) const;
-//	Task& operator=(const Task& rhs);
 
 	//Getters & Setters
 	const unsigned short getDuration() const;
-	Machine& getMachine() const;
+	unsigned short getMachineId() const;
 	unsigned short getStartTime() const;
 	void setStartTime(unsigned short startTime);
 	bool isTaskCompleted() const;
@@ -31,7 +26,7 @@ public:
 
 private:
 	//Attributes
-	Machine& machine;
+	unsigned short machineId;
 	unsigned short duration;
 	unsigned short startTime;
 	bool taskCompleted;

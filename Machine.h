@@ -13,7 +13,7 @@ public:
 	//Constructor & Destructor
 	Machine();
 	Machine(const unsigned short a_id);
-	Machine(const Machine& rhs);
+//	Machine(const Machine& rhs);
 	virtual ~Machine();
 
 	//Operators

@@ -48,7 +48,7 @@ JobShop::JobShop(std::ifstream &input) {
 			durations.push_back(duration);
 		}
 		std::cout << i << ": ";
-		Jobs.push_back(Job(machines, durations, Machines));
+		Jobs.push_back(Job(machines, durations));
 		std::cout << std::endl;
 	}
 	input.close();
@@ -67,7 +67,7 @@ void JobShop::assignMachines() {
 		if (!Machines[i].isUsed()) {
 			std::vector<unsigned short> conflictingJobs;
 			for(unsigned short j = 0; j < Jobs.size(); j++){
-				if(Jobs.at(j).getNextMachine() == Machines[i]){
+				if(Jobs.at(j).getNextMachineId() == Machines[i].getId()){
 					conflictingJobs.push_back(j);
 				}
 			}
@@ -115,7 +115,7 @@ void JobShop::testCheck(){
 	std::cout << "Jobs:" << std::endl;
 
 	for (unsigned short i = 0; i < Jobs.size(); i++) {
-		std::cout << i << ": " << Jobs[i].getTasks()[0].getMachine().getId() << " - " << Jobs[i].getTotalRemainingDuration() << " - " << Jobs[i].getTasks()[0].getStartTime() << std::endl;
+		std::cout << i << ": " << Jobs[i].getTasks()[0].getMachineId() << " - " << Jobs[i].getTotalRemainingDuration() << " - " << Jobs[i].getTasks()[0].getStartTime() << std::endl;
 	}
 }
 

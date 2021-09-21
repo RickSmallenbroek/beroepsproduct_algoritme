@@ -16,12 +16,12 @@
 Job::Job() {
 }
 
-Job::Job(const std::vector<unsigned short>& machines, const std::vector<unsigned short>& durations, const std::vector<Machine>& machineList) {
+Job::Job(const std::vector<unsigned short>& machines, const std::vector<unsigned short>& durations) {
 	startTime = 1;
 	endTime = 1;
 	jobCompleted = false;
 	for(int i = 0; i < machines.size(); i++){
-		Tasks.push_back(Task(machineList.at(machines.at(i)), durations.at(i)));
+		Tasks.push_back(Task(machines.at(i), durations.at(i)));
 	}
 }
 
@@ -29,13 +29,13 @@ Job::~Job() {
 	// TODO Auto-generated destructor stub
 }
 
-Machine& Job::getNextMachine() {
+unsigned short Job::getNextMachineId() {
 	auto inQueue = [](const Task& task){
 		return !task.isTaskCompleted();
 	};
 
 	auto result = std::find_if(Tasks.begin(), Tasks.end(), inQueue);
-	return result->getMachine();
+	return result->getMachineId();
 }
 
 unsigned short Job::getTotalRemainingDuration() {

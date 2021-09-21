@@ -8,10 +8,10 @@
 #include "Task.h"
 #include <iostream>
 
-Task::Task(const Machine& a_machine, const unsigned short a_duration)
-:machine(a_machine), duration(a_duration), startTime(1), taskCompleted(false)
+Task::Task(const unsigned short a_machineId, const unsigned short a_duration)
+:machineId(a_machineId), duration(a_duration), startTime(1), taskCompleted(false)
 {
-	std::cout << machine.getId() << "-" << duration << " ";
+	std::cout << machineId << "-" << duration << " ";
 }
 
 Task::~Task() {
@@ -22,8 +22,8 @@ const unsigned short Task::getDuration() const {
 	return duration;
 }
 
-Machine& Task::getMachine() const {
-	return machine;
+unsigned short Task::getMachineId() const {
+	return machineId;
 }
 
 unsigned short Task::getStartTime() const {
