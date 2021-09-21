@@ -29,16 +29,20 @@ JobShop::JobShop(std::ifstream &input) {
 //	int num;
 	input >> jobsCount;
 	input >> machinesCount;
-	std::cout << "jobs: " << jobsCount << " machines: " << machinesCount << std::endl;
+	std::cout << "jobs: " << jobsCount << " machines: " << machinesCount
+			<< std::endl;
 
-	for(int i = 0; i < machinesCount; ++i){
+	for (int i = 0; i < machinesCount; ++i) {
 		Machines.push_back(Machine(i));
 	}
 
-	for(int i = 0; i < jobsCount; i++){
+	for (int i = 0; i < jobsCount; i++) {
 		std::vector<Machine> machines;
 		std::vector<unsigned short> durations;
-		for(int j = 0; j < machinesCount; j++){
+		if (input.peek() == 10) {
+			input.get();
+		}
+		while (input.peek() != 10 && !input.eof()) {
 			unsigned short machineId;
 			unsigned short duration;
 			input >> machineId;
@@ -86,10 +90,11 @@ void JobShop::assignMachines() {
 
 //Hij loopt door de gegeven Jobs heen om daar de Job die de Critical Path vormt te returnen
 Job& JobShop::getLeastSlackJob(std::vector<Job> &conflictingJobs) {
-	Job& longestJob = conflictingJobs[0];
+	Job &longestJob = conflictingJobs[0];
 	unsigned short longestJobDuration = longestJob.getTotalRemainingDuration();
-	for(auto i = 1; i < conflictingJobs.size(); i++){
-		if(longestJobDuration < conflictingJobs[i].getTotalRemainingDuration()){
+	for (auto i = 1; i < conflictingJobs.size(); i++) {
+		if (longestJobDuration
+				< conflictingJobs[i].getTotalRemainingDuration()) {
 			longestJob = conflictingJobs[i];
 		}
 	}

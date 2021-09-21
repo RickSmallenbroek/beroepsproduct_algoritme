@@ -8,3 +8,5 @@ Debug/JobScheduling.exe
 *.o
 *.exe
 *.xml
+*.o
+*.exe
