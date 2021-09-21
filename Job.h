@@ -16,7 +16,8 @@ class Job {
 public:
 	//Constructors & Destructor
 	Job();
-	Job(const std::vector<Machine>& machines, const std::vector<unsigned short>& durations);
+	Job(const std::vector<unsigned short>& machines, const std::vector<unsigned short>& durations, const std::vector<Machine>& machineList);
+	Job(const Job& rhs);
 	virtual ~Job();
 
 	//Operators
@@ -25,20 +26,24 @@ public:
 //	Job& operator=(const Job& rhs);
 
 	//Methods
-	Machine getNextMachine();
+	Machine& getNextMachine();
 	unsigned short getTotalRemainingDuration();
 	void printJobOutput();
+	void startNextTask(const unsigned short startTime);
 
 	//Getters & Setters
 	const std::vector<Task>& getTasks() const;
 	unsigned short getEndTime() const;
 	unsigned short getStartTime() const;
+	bool isJobCompleted() const;
+	void setJobCompleted(bool jobCompleted);
 
 private:
 	//Attributes
 	std::vector<Task> Tasks;
 	unsigned short startTime;
 	unsigned short endTime;
+	bool jobCompleted;
 };
 
 #endif /* JOB_H_ */

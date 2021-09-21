@@ -14,12 +14,14 @@
 #include <Algorithm>
 
 Job::Job() {
-	// TODO Auto-generated constructor stub
 }
 
-Job::Job(const std::vector<Machine>& machines, const std::vector<unsigned short>& durations) {
+Job::Job(const std::vector<unsigned short>& machines, const std::vector<unsigned short>& durations, const std::vector<Machine>& machineList) {
+	startTime = 1;
+	endTime = 1;
+	jobCompleted = false;
 	for(int i = 0; i < machines.size(); i++){
-		Tasks.push_back(Task(machines.at(i), durations.at(i)));
+		Tasks.push_back(Task(machineList.at(machines.at(i)), durations.at(i)));
 	}
 }
 
@@ -27,25 +29,7 @@ Job::~Job() {
 	// TODO Auto-generated destructor stub
 }
 
-//bool Job::operator ==(const Job &rhs) const {
-//	return Tasks == rhs.getTasks() && startTime == rhs.getStartTime() && endTime == rhs.getEndTime();
-//}
-//
-//bool Job::operator <(const Job &rhs) const {
-//	return this->getTotalRemainingDuration() < rhs.getTotalRemainingDuration();
-//}
-//
-//Job& Job::operator =(const Job &rhs) {
-//	if(*this != rhs){
-//		Tasks = rhs.getTasks();
-//		startTime = rhs.getStartTime();
-//		endTime = rhs.getEndTime();
-//	}
-//	return *this;
-//}
-
-Machine Job::getNextMachine() {
-
+Machine& Job::getNextMachine() {
 	auto inQueue = [](const Task& task){
 		return !task.isTaskCompleted();
 	};
@@ -67,6 +51,18 @@ unsigned short Job::getTotalRemainingDuration() {
 void Job::printJobOutput() {
 }
 
+void Job::startNextTask(const unsigned short startTime) {
+	auto inQueue = [](const Task& task){
+		return !task.isTaskCompleted();
+	};
+
+	auto result = std::find_if(Tasks.begin(), Tasks.end(), inQueue);
+	if(result == Tasks.begin()){
+		this->startTime = startTime;
+	}
+	result->setStartTime(startTime);
+}
+
 const std::vector<Task>& Job::getTasks() const {
 return Tasks;
 }
@@ -77,4 +73,12 @@ return endTime;
 
 unsigned short Job::getStartTime() const {
 return startTime;
+}
+
+bool Job::isJobCompleted() const {
+	return jobCompleted;
+}
+
+void Job::setJobCompleted(bool jobCompleted) {
+	this->jobCompleted = jobCompleted;
 }

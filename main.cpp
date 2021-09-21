@@ -15,10 +15,12 @@ int main() {
 	std::ifstream inputFile;
 	inputFile.open("input.txt");
 
-	if (!inputFile.is_open()) { 						//checks if the file´s not open
+	if (!inputFile.is_open()) { 						//checks if the fileï¿½s not open
 		std::cout << "File not present!" << std::endl;
 	} else {						//checks if it is the end of the file.
 		JobShop jobs(inputFile);
+		jobs.assignMachines();
+		jobs.testCheck();
 	}
 
 	return 0;

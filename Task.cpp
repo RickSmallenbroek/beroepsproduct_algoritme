@@ -8,13 +8,8 @@
 #include "Task.h"
 #include <iostream>
 
-Task::Task()
-{
-	// TODO Auto-generated constructor stub
-}
-
 Task::Task(const Machine& a_machine, const unsigned short a_duration)
-:machine(a_machine), duration(a_duration)
+:machine(a_machine), duration(a_duration), startTime(1), taskCompleted(false)
 {
 	std::cout << machine.getId() << "-" << duration << " ";
 }
@@ -23,29 +18,11 @@ Task::~Task() {
 	// TODO Auto-generated destructor stub
 }
 
-//bool Task::operator ==(const Task &rhs) const {
-//	return machine == rhs.getMachine() && duration == rhs.getDuration() && startTime == rhs.getStartTime() && taskCompleted == rhs.isTaskCompleted();
-//}
-//
-//bool Task::operator <(const Task &rhs) const {
-//	return duration < rhs.getDuration();
-//}
-//
-//Task& Task::operator =(const Task &rhs) {
-//	if(*this != rhs){
-//		machine = rhs.getMachine();
-//		duration = rhs.getDuration();
-//		startTime = rhs.getStartTime();
-//		taskCompleted = rhs.isTaskCompleted();
-//	}
-//	return *this;
-//}
-
 const unsigned short Task::getDuration() const {
 	return duration;
 }
 
-const Machine& Task::getMachine() const {
+Machine& Task::getMachine() const {
 	return machine;
 }
 

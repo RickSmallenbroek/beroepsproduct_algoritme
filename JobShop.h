@@ -27,7 +27,8 @@ public:
 	//Methods
 	void createSchedule();
 	void assignMachines();
-	Job& getLeastSlackJob(std::vector<Job>& conflictingJobs);
+	Job& getLeastSlackJob(std::vector<unsigned short>& conflictingJobs);
+	void testCheck();
 
 	//Getters & Setters
 	const std::vector<Job>& getJobs() const;
@@ -37,6 +38,7 @@ private:
 	//Attributes
 	std::vector<Machine> Machines;
 	std::vector<Job> Jobs;
+	unsigned short currentTime;
 };
 
 #endif /* JOBSHOP_H_ */
