@@ -19,8 +19,7 @@ int main() {
 		std::cout << "File not present!" << std::endl;
 	} else {						//checks if it is the end of the file.
 		JobShop jobs(inputFile);
-		jobs.assignMachines();
-		jobs.testCheck();
+		jobs.createSchedule();
 	}
 
 	return 0;

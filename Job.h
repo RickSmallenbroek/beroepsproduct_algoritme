@@ -22,7 +22,10 @@ public:
 
 	//Methods
 	unsigned short getNextMachineId();
+	unsigned short getNextTaskDuration();
+	unsigned short getNextEndTime();
 	unsigned short getTotalRemainingDuration();
+	void completeNextJob();
 	void printJobOutput();
 	void startNextTask(const unsigned short startTime);
 
@@ -39,6 +42,10 @@ private:
 	unsigned short startTime;
 	unsigned short endTime;
 	bool jobCompleted;
+
+	//Methods
+//	Task& getNextTask();
+	unsigned short getNextTask();
 };
 
 #endif /* JOB_H_ */

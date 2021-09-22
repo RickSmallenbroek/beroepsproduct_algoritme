@@ -9,9 +9,15 @@
 #include <iostream>
 
 Task::Task(const unsigned short a_machineId, const unsigned short a_duration)
-:machineId(a_machineId), duration(a_duration), startTime(1), taskCompleted(false)
+:machineId(a_machineId), duration(a_duration), endTime(0), taskCompleted(false)
 {
 	std::cout << machineId << "-" << duration << " ";
+}
+
+Task::Task(const Task &rhs)
+: machineId(rhs.getMachineId()), duration(rhs.getDuration()), endTime(rhs.getEndTime()), taskCompleted(rhs.isTaskCompleted())
+{
+	std::cout << __PRETTY_FUNCTION__ << std::endl;
 }
 
 Task::~Task() {
@@ -26,12 +32,12 @@ unsigned short Task::getMachineId() const {
 	return machineId;
 }
 
-unsigned short Task::getStartTime() const {
-	return startTime;
+unsigned short Task::getEndTime() const {
+	return endTime;
 }
 
-void Task::setStartTime(unsigned short startTime) {
-	this->startTime = startTime;
+void Task::setEndTime(unsigned short startTime) {
+	this->endTime = startTime + duration;
 }
 
 bool Task::isTaskCompleted() const {
@@ -40,5 +46,6 @@ bool Task::isTaskCompleted() const {
 
 void Task::setTaskCompleted(bool taskCompleted) {
 	this->taskCompleted = taskCompleted;
+	std::cout << "Deze task is nu completed: " << this->taskCompleted << std::endl;
 }
 
