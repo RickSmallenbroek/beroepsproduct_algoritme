@@ -16,12 +16,9 @@ int main() {
 	std::cout << "Enter the file name: ";
 	std::cin >> fileName;
 	std::ifstream inputFile;
-//	inputFile.open("input.txt");
 	inputFile.open(fileName);
 
-	if (!inputFile.is_open()) { 						//checks if the file�s not open
-		std::cout << "File not present!" << std::endl;
-	} else {						//checks if it is the end of the file.
+	if (inputFile.is_open()) {
 		JobShop jobs(inputFile);
 		jobs.createSchedule();
 	}

@@ -29,8 +29,6 @@ JobShop::JobShop(std::ifstream &input) {
 	int machinesCount;
 	input >> jobsCount;
 	input >> machinesCount;
-	std::cout << "jobs: " << jobsCount << " machines: " << machinesCount
-			<< std::endl;
 
 	for (int i = 0; i < machinesCount; ++i) {
 		Machines.push_back(Machine(i));
@@ -50,12 +48,9 @@ JobShop::JobShop(std::ifstream &input) {
 			machines.push_back(machineId);
 			durations.push_back(duration);
 		}
-		std::cout << i << ": ";
 		Jobs.push_back(Job(machines, durations));
-		std::cout << std::endl;
 	}
 	input.close();
-	std::cout << "End-of-file reached.." << std::endl;
 }
 
 JobShop::~JobShop() {

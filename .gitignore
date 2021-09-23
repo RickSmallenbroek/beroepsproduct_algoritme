@@ -10,3 +10,4 @@ Debug/JobScheduling.exe
 *.xml
 *.o
 *.exe
+.cproject
