@@ -39,7 +39,10 @@ JobShop::JobShop(std::ifstream &input) {
 	for (int i = 0; i < jobsCount; i++) {
 		std::vector<unsigned short> machines;
 		std::vector<unsigned short> durations;
-		for (int j = 0; j < machinesCount; j++) {
+		if (input.peek() == 10) {
+			input.get();
+		}
+		while (input.peek() != 10 && !input.eof()) {
 			unsigned short machineId;
 			unsigned short duration;
 			input >> machineId;

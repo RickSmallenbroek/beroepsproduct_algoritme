@@ -17,7 +17,6 @@ Task::Task(const unsigned short a_machineId, const unsigned short a_duration)
 Task::Task(const Task &rhs)
 : machineId(rhs.getMachineId()), duration(rhs.getDuration()), endTime(rhs.getEndTime()), taskCompleted(rhs.isTaskCompleted())
 {
-	std::cout << __PRETTY_FUNCTION__ << std::endl;
 }
 
 Task::~Task() {
@@ -46,6 +45,5 @@ bool Task::isTaskCompleted() const {
 
 void Task::setTaskCompleted(bool taskCompleted) {
 	this->taskCompleted = taskCompleted;
-	std::cout << "Deze task is nu completed: " << this->taskCompleted << std::endl;
 }
 
