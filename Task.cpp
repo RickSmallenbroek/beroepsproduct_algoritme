@@ -8,53 +8,35 @@
 #include "Task.h"
 #include <iostream>
 
-Task::Task()
+Task::Task(const unsigned short a_machineId, const unsigned short a_duration)
+:machineId(a_machineId), duration(a_duration), endTime(0), taskCompleted(false)
 {
-	// TODO Auto-generated constructor stub
+	std::cout << machineId << "-" << duration << " ";
 }
 
-Task::Task(const Machine& a_machine, const unsigned short a_duration)
-:machine(a_machine), duration(a_duration)
+Task::Task(const Task &rhs)
+: machineId(rhs.getMachineId()), duration(rhs.getDuration()), endTime(rhs.getEndTime()), taskCompleted(rhs.isTaskCompleted())
 {
-	std::cout << machine.getId() << "-" << duration << " ";
 }
 
 Task::~Task() {
 	// TODO Auto-generated destructor stub
 }
 
-//bool Task::operator ==(const Task &rhs) const {
-//	return machine == rhs.getMachine() && duration == rhs.getDuration() && startTime == rhs.getStartTime() && taskCompleted == rhs.isTaskCompleted();
-//}
-//
-//bool Task::operator <(const Task &rhs) const {
-//	return duration < rhs.getDuration();
-//}
-//
-//Task& Task::operator =(const Task &rhs) {
-//	if(*this != rhs){
-//		machine = rhs.getMachine();
-//		duration = rhs.getDuration();
-//		startTime = rhs.getStartTime();
-//		taskCompleted = rhs.isTaskCompleted();
-//	}
-//	return *this;
-//}
-
 const unsigned short Task::getDuration() const {
 	return duration;
 }
 
-const Machine& Task::getMachine() const {
-	return machine;
+unsigned short Task::getMachineId() const {
+	return machineId;
 }
 
-unsigned short Task::getStartTime() const {
-	return startTime;
+unsigned short Task::getEndTime() const {
+	return endTime;
 }
 
-void Task::setStartTime(unsigned short startTime) {
-	this->startTime = startTime;
+void Task::setEndTime(unsigned short startTime) {
+	this->endTime = startTime + duration;
 }
 
 bool Task::isTaskCompleted() const {

@@ -19,10 +19,11 @@ int main() {
 //	inputFile.open("input.txt");
 	inputFile.open(fileName);
 
-	if (!inputFile.is_open()) { 						//checks if the file´s not open
+	if (!inputFile.is_open()) { 						//checks if the fileï¿½s not open
 		std::cout << "File not present!" << std::endl;
 	} else {						//checks if it is the end of the file.
 		JobShop jobs(inputFile);
+		jobs.createSchedule();
 	}
 
 	return 0;
