@@ -13,11 +13,16 @@ public:
 	//Constructor & Destructor
 	Machine();
 	Machine(const unsigned short a_id);
+//	Machine(const Machine& rhs);
 	virtual ~Machine();
+
+	//Operators
+	bool operator==(const Machine& rhs) const;
 
 	//Getters & Setters
 	bool isUsed() const;
 	unsigned short getId() const;
+	void setUsed(bool used);
 
 private:
 	unsigned short id;

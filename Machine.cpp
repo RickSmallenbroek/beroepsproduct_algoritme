@@ -23,6 +23,10 @@ Machine::~Machine() {
 	// TODO Auto-generated destructor stub
 }
 
+bool Machine::operator ==(const Machine& rhs) const {
+	return id == rhs.getId();
+}
+
 bool Machine::isUsed() const {
 	return used;
 }
@@ -31,3 +35,6 @@ unsigned short Machine::getId() const {
 	return id;
 }
 
+void Machine::setUsed(bool used) {
+	this->used = used;
+}

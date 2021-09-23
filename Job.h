@@ -16,29 +16,36 @@ class Job {
 public:
 	//Constructors & Destructor
 	Job();
-	Job(const std::vector<Machine>& machines, const std::vector<unsigned short>& durations);
+	Job(const std::vector<unsigned short>& machines, const std::vector<unsigned short>& durations);
+//	Job(const Job& rhs);
 	virtual ~Job();
 
-	//Operators
-//	bool operator==(const Job& rhs) const;
-//	bool operator<(const Job& rhs) const;
-//	Job& operator=(const Job& rhs);
-
 	//Methods
-	Machine getNextMachine();
+	unsigned short getNextMachineId();
+	unsigned short getNextTaskDuration();
+	unsigned short getNextEndTime();
 	unsigned short getTotalRemainingDuration();
+	void completeNextJob();
 	void printJobOutput();
+	void startNextTask(const unsigned short startTime);
 
 	//Getters & Setters
 	const std::vector<Task>& getTasks() const;
 	unsigned short getEndTime() const;
 	unsigned short getStartTime() const;
+	bool isJobCompleted() const;
+	void setJobCompleted(bool jobCompleted);
 
 private:
 	//Attributes
 	std::vector<Task> Tasks;
 	unsigned short startTime;
 	unsigned short endTime;
+	bool jobCompleted;
+
+	//Methods
+//	Task& getNextTask();
+	unsigned short getNextTask();
 };
 
 #endif /* JOB_H_ */
