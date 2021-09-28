@@ -2,16 +2,15 @@
  * Machine.cpp
  *
  *  Created on: 14 Sep 2021
- *      Author: Damo Luijpers
+ *      Author: Damo Luijpers, Rick Smallenbroek
  */
 
 #include "Machine.h"
+#include <iostream>
 
 Machine::Machine()
 :id(0), used(false)
 {
-	// TODO Auto-generated constructor stub
-
 }
 
 Machine::Machine(const unsigned short a_id)

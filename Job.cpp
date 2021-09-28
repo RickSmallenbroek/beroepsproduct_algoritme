@@ -2,7 +2,7 @@
  * Job.cpp
  *
  *  Created on: 12 Sep 2021
- *      Author: Damo Luijpers
+ *      Author: Damo Luijpers, Rick Smallenbroek
  */
 
 #include "Job.h"
@@ -17,63 +17,36 @@ Job::Job() {
 }
 
 Job::Job(const std::vector<unsigned short>& machines, const std::vector<unsigned short>& durations) {
+	nextTask = 0;
 	startTime = 0;
 	endTime = 0;
 	jobCompleted = false;
-	for(int i = 0; i < machines.size(); i++){
+	for(unsigned long long i = 0; i < machines.size(); i++){
 		Tasks.push_back(Task(machines.at(i), durations.at(i)));
 	}
 }
 
 Job::~Job() {
-	// TODO Auto-generated destructor stub
 }
 
-//Task& Job::getNextTask(){
-//	std::cout << "getNextTask" << std::endl;
-////	auto inQueue = [](const Task& task){
-////		return !task.isTaskCompleted();
-////	};
-////
-////	auto result = std::find_if(Tasks.begin(), Tasks.end(), inQueue);
-////	return *result;
-//	for(auto i = 0; i < Tasks.size(); i++){
-////		std::cout << "Is task complete: " << Tasks.at(i).isTaskCompleted() << std::endl;
-//		if(!Tasks.at(i).isTaskCompleted()){
-//			Task& nextTask = Tasks.at(i);
-//			return nextTask;
-//		}
-//	}
-//
-//	return *Tasks.end();
-//}
-
-unsigned short Job::getNextTask(){
-	for(auto i = 0; i < Tasks.size(); i++){
-		if(!Tasks.at(i).isTaskCompleted()){
-			return i;
-		}
-	}
-	return false;
+unsigned short Job::getNextTask() const{
+	return nextTask;
 }
 
 unsigned short Job::getNextMachineId() {
-	auto result = getNextTask();
-	return Tasks.at(result).getMachineId();
+	return Tasks.at(nextTask).getMachineId();
 }
 
 unsigned short Job::getNextTaskDuration() {
-	auto result = getNextTask();
-	return Tasks.at(result).getDuration();
+	return Tasks.at(nextTask).getDuration();
 }
 
-unsigned short Job::getNextEndTime() {
-	auto result = getNextTask();
-	return Tasks.at(result).getEndTime();
+unsigned long long Job::getNextEndTime() {
+	return Tasks.at(nextTask).getEndTime();
 }
 
-unsigned short Job::getTotalRemainingDuration() {
-	short totalDuration = 0;
+unsigned long long Job::getTotalRemainingDuration() {
+	long long totalDuration = 0;
 	for(const auto task : Tasks){
 		if(!task.isTaskCompleted()){
 			totalDuration += task.getDuration();
@@ -83,40 +56,37 @@ unsigned short Job::getTotalRemainingDuration() {
 }
 
 void Job::completeNextJob() {
-	auto result = getNextTask();
-	Tasks.at(result).setTaskCompleted(true);
+	Tasks.at(nextTask).setTaskCompleted(true);
+	if(nextTask == Tasks.size() - 1){
+		this->endTime = Tasks.at(nextTask).getEndTime();
+		jobCompleted = true;
+	}
+	if(nextTask < Tasks.size() - 1){
+		nextTask++;
+	}
 }
 
 void Job::printJobOutput() {
 	std::cout << startTime << " " << endTime;
 }
 
-void Job::startNextTask(const unsigned short startTime) {
-	auto inQueue = [](const Task& task){
-		return !task.isTaskCompleted();
-	};
-
-	auto result = std::find_if(Tasks.begin(), Tasks.end(), inQueue);
-	if(result == Tasks.begin()){
+void Job::startNextTask(const unsigned long long startTime) {
+	if(nextTask == 0){
 		this->startTime = startTime;
 	}
-	result->setEndTime(startTime);
-	if(result == Tasks.end() - 1){
-		this->endTime = result->getEndTime();
-		jobCompleted = true;
-	}
+	Tasks.at(nextTask).setEndTime(startTime);
 }
 
 const std::vector<Task>& Job::getTasks() const {
-return Tasks;
+	return Tasks;
 }
 
-unsigned short Job::getEndTime() const {
-return endTime;
+unsigned long long Job::getEndTime() const {
+	return endTime;
 }
 
-unsigned short Job::getStartTime() const {
-return startTime;
+unsigned long long Job::getStartTime() const {
+	return startTime;
 }
 
 bool Job::isJobCompleted() const {

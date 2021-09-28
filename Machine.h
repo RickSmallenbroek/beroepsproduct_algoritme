@@ -2,7 +2,7 @@
  * Machine.h
  *
  *  Created on: 14 Sep 2021
- *      Author: Damo Luijpers
+ *      Author: Damo Luijpers, Rick Smallenbroek
  */
 
 #ifndef MACHINE_H_
@@ -13,7 +13,6 @@ public:
 	//Constructor & Destructor
 	Machine();
 	Machine(const unsigned short a_id);
-//	Machine(const Machine& rhs);
 	virtual ~Machine();
 
 	//Operators

@@ -2,7 +2,7 @@
  * Task.h
  *
  *  Created on: 12 Sep 2021
- *      Author: Damo Luijpers
+ *      Author: Damo Luijpers, Rick Smallenbroek
  */
 
 #ifndef TASK_H_
@@ -20,8 +20,8 @@ public:
 	//Getters & Setters
 	const unsigned short getDuration() const;
 	unsigned short getMachineId() const;
-	unsigned short getEndTime() const;
-	void setEndTime(unsigned short startTime);
+	unsigned long long getEndTime() const;
+	void setEndTime(unsigned long long startTime);
 	bool isTaskCompleted() const;
 	void setTaskCompleted(bool taskCompleted);
 
@@ -29,7 +29,7 @@ private:
 	//Attributes
 	unsigned short machineId;
 	unsigned short duration;
-	unsigned short endTime;
+	unsigned long long endTime;
 	bool taskCompleted;
 };
 

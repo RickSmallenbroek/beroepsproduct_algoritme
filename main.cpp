@@ -11,18 +11,22 @@
 #include <fstream>
 #include <string>
 
-int main() {
+int main(int argc, char **argv) {
 	std::string fileName;
-	std::cout << "Enter the file name: ";
-	std::cin >> fileName;
+	if(argc >= 2){
+		fileName = argv[1];
+	}else{
+		return 1;
+	}
 	std::ifstream inputFile;
 	inputFile.open(fileName);
 
 	if (inputFile.is_open()) {
 		JobShop jobs(inputFile);
 		jobs.createSchedule();
+	}else{
+		std::cout << "Unable to open file." << std::endl;
 	}
-
 	return 0;
 }
 

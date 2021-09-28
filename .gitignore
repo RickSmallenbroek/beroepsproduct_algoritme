@@ -11,3 +11,4 @@ Debug/JobScheduling.exe
 *.o
 *.exe
 .cproject
+*.o

@@ -2,7 +2,7 @@
  * JobShop.cpp
  *
  *  Created on: 12 Sep 2021
- *      Author: Damo Luijpers
+ *      Author: Damo Luijpers, Rick Smallenbroek
  */
 
 #include <fstream>
@@ -18,11 +18,6 @@
 #include "Job.h"
 #include "Machine.h"
 
-JobShop::JobShop() {
-	// TODO Auto-generated constructor stub
-
-}
-
 JobShop::JobShop(std::ifstream &input) {
 	currentTime = 0;
 	int jobsCount;
@@ -34,6 +29,12 @@ JobShop::JobShop(std::ifstream &input) {
 		Machines.push_back(Machine(i));
 	}
 
+	auto erraseWhitespace = [](std::ifstream& input){
+		while(input.peek() == 32){
+			input.get();
+		}
+	};
+
 	for (int i = 0; i < jobsCount; i++) {
 		std::vector<unsigned short> machines;
 		std::vector<unsigned short> durations;
@@ -44,7 +45,9 @@ JobShop::JobShop(std::ifstream &input) {
 			unsigned short machineId;
 			unsigned short duration;
 			input >> machineId;
+			erraseWhitespace(input);
 			input >> duration;
+			erraseWhitespace(input);
 			machines.push_back(machineId);
 			durations.push_back(duration);
 		}
@@ -71,12 +74,12 @@ void JobShop::createSchedule() {
 }
 
 void JobShop::assignMachines() {
-	for (unsigned short i = 0; i < Machines.size(); i++) { //kan ook for-each loop zijn
-		if (!Machines[i].isUsed()) {
+	for (Machine& machine : Machines) {
+		if (!machine.isUsed()) {
 			std::vector<unsigned short> conflictingJobs;
-			for (unsigned short j = 0; j < Jobs.size(); j++) {
-				if(Jobs.at(j).isJobCompleted() == false){
-					if (Jobs.at(j).getNextMachineId() == Machines[i].getId()) {
+			for (unsigned long long j = 0; j < Jobs.size(); j++) {
+				if(!Jobs.at(j).isJobCompleted()){
+					if (Jobs.at(j).getNextMachineId() == machine.getId()) {
 						conflictingJobs.push_back(j);
 					}
 				}
@@ -90,20 +93,20 @@ void JobShop::assignMachines() {
 					nextJob = conflictingJobs.at(0);
 				}
 				Jobs.at(nextJob).startNextTask(currentTime);
-				unsigned short taskEndTime = currentTime + Jobs.at(nextJob).getNextTaskDuration();
+				unsigned long long taskEndTime = currentTime + Jobs.at(nextJob).getNextTaskDuration();
 				if (find(queue.begin(), queue.end(), taskEndTime) == queue.end()) {
 					queue.push_back(taskEndTime);
 				}
-				Machines[i].setUsed(true);
+				machine.setUsed(true);
 			}
 		}
 	}
 }
 
-//Hij loopt door de gegeven Jobs heen om daar de Job die de Critical Path vormt te returnen
+//Hij loopt door de gegeven Jobs om daar de Job die nog het langst te gaan heeft terug te geven.
 unsigned short JobShop::getLeastSlackJob(std::vector<unsigned short> &conflictingJobs) {
 	unsigned short longestJob = conflictingJobs[0];
-	unsigned short longestJobDuration = Jobs.at(longestJob).getTotalRemainingDuration();
+	unsigned long long longestJobDuration = Jobs.at(longestJob).getTotalRemainingDuration();
 	for (unsigned short i = 1; i < conflictingJobs.size(); i++) {
 		if (longestJobDuration
 				< Jobs.at(conflictingJobs[i]).getTotalRemainingDuration()) {
@@ -115,18 +118,19 @@ unsigned short JobShop::getLeastSlackJob(std::vector<unsigned short> &conflictin
 }
 
 void JobShop::endFinishedTasks(){
-	for(Job& job : Jobs){
-		if(job.getNextEndTime() != 0 && job.getNextEndTime() <= currentTime){
-			unsigned short machinedId = job.getNextMachineId();
-			Machines.at(machinedId).setUsed(false);
-			job.completeNextJob();
-
+	for(unsigned long long i = 0; i < Jobs.size(); i++){
+		if(!Jobs.at(i).isJobCompleted()){
+			if(Jobs.at(i).getNextEndTime() != 0 && Jobs.at(i).getNextEndTime() <= currentTime){
+				unsigned short machineId = Jobs.at(i).getNextMachineId();
+				Machines.at(machineId).setUsed(false);
+				Jobs.at(i).completeNextJob();
+			}
 		}
 	}
 }
 
 void JobShop::printJobShop() {
-	for(unsigned short i = 0; i < Jobs.size(); i++){
+	for(unsigned long long i = 0; i < Jobs.size(); i++){
 		std::cout << i << " ";
 		Jobs.at(i).printJobOutput();
 		std::cout << std::endl;
@@ -138,14 +142,14 @@ const std::vector<Job>& JobShop::getJobs() const {
 }
 
 void JobShop::testCheck() {
-	for (unsigned short i = 0; i < Machines.size(); ++i) {
+	for (unsigned long long i = 0; i < Machines.size(); ++i) {
 		std::cout << Machines[i].getId() << " - " << Machines[i].isUsed()
 				<< std::endl;
 	}
 
 	std::cout << "Jobs:" << std::endl;
 
-	for (unsigned short i = 0; i < Jobs.size(); i++) {
+	for (unsigned long long i = 0; i < Jobs.size(); i++) {
 		std::cout << i << ": " << Jobs[i].getTasks()[0].getMachineId() << " - "
 				<< Jobs[i].getTotalRemainingDuration() << " - "
 				<< Jobs[i].getTasks()[0].getEndTime() << std::endl;
