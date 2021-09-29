@@ -16,12 +16,12 @@ class Job {
 public:
 	//Constructors & Destructor
 	Job();
-	Job(const std::vector<unsigned short>& machines, const std::vector<unsigned short>& durations);
+	Job(const std::vector<unsigned int>& machines, const std::vector<unsigned int>& durations);
 	virtual ~Job();
 
 	//Methods
-	unsigned short getNextMachineId();
-	unsigned short getNextTaskDuration();
+	unsigned int getNextMachineId();
+	unsigned int getNextTaskDuration();
 	unsigned long long getNextEndTime();
 	unsigned long long getTotalRemainingDuration();
 	void completeNextJob();

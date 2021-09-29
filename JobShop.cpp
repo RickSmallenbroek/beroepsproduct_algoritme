@@ -13,51 +13,68 @@
 #include <vector>
 #include <array>
 #include <Algorithm>
+#include <regex>
 
 #include "JobShop.h"
 #include "Job.h"
 #include "Machine.h"
 
-JobShop::JobShop(std::ifstream &input) {
-	currentTime = 0;
-	int jobsCount;
-	int machinesCount;
-	input >> jobsCount;
-	input >> machinesCount;
+JobShop::JobShop(std::ifstream &file) :
+		currentTime(0) {
 
-	for (int i = 0; i < machinesCount; ++i) {
-		Machines.push_back(Machine(i));
-	}
+	std::string firstLine;
+	std::getline(file, firstLine);
+	std::regex posibleNumbers("[0-9]+");
+	std::sregex_iterator next(firstLine.begin(), firstLine.end(), posibleNumbers);
+	std::sregex_iterator end;
+	std::smatch match = *next;
+	std::string jobCountString = match.str(0);
+	unsigned int jobsCount = stoi(jobCountString);
+	++next;
+	std::smatch matchb = *next;
+	std::string machinesCountString = matchb.str(0);
+	unsigned int machinesCount = stoi(machinesCountString);
+	makeMachines(machinesCount);
 
-	auto erraseWhitespace = [](std::ifstream& input){
-		while(input.peek() == 32){
-			input.get();
-		}
-	};
+	std::vector<unsigned int> machines;
+	std::vector<unsigned int> durations;
+	for (unsigned char x = 0; x < jobsCount; ++x) {
+		std::string regel;
+		std::getline(file, regel);
+		unsigned char order = 0;
+		std::regex task("[0-9]+");
+		std::sregex_iterator next(regel.begin(), regel.end(), task);
+		std::sregex_iterator end;
+		while (next != end) {
 
-	for (int i = 0; i < jobsCount; i++) {
-		std::vector<unsigned short> machines;
-		std::vector<unsigned short> durations;
-		if (input.peek() == 10) {
-			input.get();
-		}
-		while (input.peek() != 10 && !input.eof()) {
-			unsigned short machineId;
-			unsigned short duration;
-			input >> machineId;
-			erraseWhitespace(input);
-			input >> duration;
-			erraseWhitespace(input);
-			machines.push_back(machineId);
+			std::smatch match = *next;
+			std::string aString = match.str(0);
+			unsigned int machine = stoi(aString);
+			++next;
+			machines.push_back(machine);
+
+			std::smatch matchb = *next;
+			std::string bString = matchb.str(0);
+			unsigned int duration = stoi(bString);
 			durations.push_back(duration);
+
+			++order;
+			++next;
 		}
 		Jobs.push_back(Job(machines, durations));
 	}
-	input.close();
+
+	file.close();
 }
 
 JobShop::~JobShop() {
 	// TODO Auto-generated destructor stub
+}
+
+void JobShop::makeMachines(unsigned int machinesCount) {
+	for (unsigned short i = 0; i < machinesCount; ++i) {
+		Machines.push_back(Machine(i));
+	}
 }
 
 void JobShop::createSchedule() {
@@ -74,11 +91,11 @@ void JobShop::createSchedule() {
 }
 
 void JobShop::assignMachines() {
-	for (Machine& machine : Machines) {
+	for (Machine &machine : Machines) {
 		if (!machine.isUsed()) {
 			std::vector<unsigned short> conflictingJobs;
-			for (unsigned long long j = 0; j < Jobs.size(); j++) {
-				if(!Jobs.at(j).isJobCompleted()){
+			for (unsigned short j = 0; j < Jobs.size(); j++) {
+				if (!Jobs.at(j).isJobCompleted()) {
 					if (Jobs.at(j).getNextMachineId() == machine.getId()) {
 						conflictingJobs.push_back(j);
 					}
@@ -93,8 +110,10 @@ void JobShop::assignMachines() {
 					nextJob = conflictingJobs.at(0);
 				}
 				Jobs.at(nextJob).startNextTask(currentTime);
-				unsigned long long taskEndTime = currentTime + Jobs.at(nextJob).getNextTaskDuration();
-				if (find(queue.begin(), queue.end(), taskEndTime) == queue.end()) {
+				unsigned long long taskEndTime = currentTime
+						+ Jobs.at(nextJob).getNextTaskDuration();
+				if (find(queue.begin(), queue.end(), taskEndTime)
+						== queue.end()) {
 					queue.push_back(taskEndTime);
 				}
 				machine.setUsed(true);
@@ -104,24 +123,28 @@ void JobShop::assignMachines() {
 }
 
 //Hij loopt door de gegeven Jobs om daar de Job die nog het langst te gaan heeft terug te geven.
-unsigned short JobShop::getLeastSlackJob(std::vector<unsigned short> &conflictingJobs) {
+unsigned short JobShop::getLeastSlackJob(
+		std::vector<unsigned short> &conflictingJobs) {
 	unsigned short longestJob = conflictingJobs[0];
-	unsigned long long longestJobDuration = Jobs.at(longestJob).getTotalRemainingDuration();
+	unsigned long long longestJobDuration =
+			Jobs.at(longestJob).getTotalRemainingDuration();
 	for (unsigned short i = 1; i < conflictingJobs.size(); i++) {
 		if (longestJobDuration
 				< Jobs.at(conflictingJobs[i]).getTotalRemainingDuration()) {
 			longestJob = conflictingJobs[i];
-			longestJobDuration = Jobs.at(longestJob).getTotalRemainingDuration();
+			longestJobDuration =
+					Jobs.at(longestJob).getTotalRemainingDuration();
 		}
 	}
 	return longestJob;
 }
 
-void JobShop::endFinishedTasks(){
-	for(unsigned long long i = 0; i < Jobs.size(); i++){
-		if(!Jobs.at(i).isJobCompleted()){
-			if(Jobs.at(i).getNextEndTime() != 0 && Jobs.at(i).getNextEndTime() <= currentTime){
-				unsigned short machineId = Jobs.at(i).getNextMachineId();
+void JobShop::endFinishedTasks() {
+	for (unsigned long long i = 0; i < Jobs.size(); i++) {
+		if (!Jobs.at(i).isJobCompleted()) {
+			if (Jobs.at(i).getNextEndTime() != 0
+					&& Jobs.at(i).getNextEndTime() <= currentTime) {
+				unsigned int machineId = Jobs.at(i).getNextMachineId();
 				Machines.at(machineId).setUsed(false);
 				Jobs.at(i).completeNextJob();
 			}
@@ -130,7 +153,7 @@ void JobShop::endFinishedTasks(){
 }
 
 void JobShop::printJobShop() {
-	for(unsigned long long i = 0; i < Jobs.size(); i++){
+	for (unsigned long long i = 0; i < Jobs.size(); i++) {
 		std::cout << i << " ";
 		Jobs.at(i).printJobOutput();
 		std::cout << std::endl;

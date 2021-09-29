@@ -7,26 +7,35 @@
 
 #include "JobShop.h"
 
+#include <regex>
 #include <iostream>
 #include <fstream>
+#include <memory>
 #include <string>
 
 int main(int argc, char **argv) {
-	std::string fileName;
-	if(argc >= 2){
+	char *fileName;
+
+	if(argc >= 2)
+	{
 		fileName = argv[1];
-	}else{
+	}
+	else
+	{
 		return 1;
 	}
-	std::ifstream inputFile;
-	inputFile.open(fileName);
 
-	if (inputFile.is_open()) {
-		JobShop jobs(inputFile);
-		jobs.createSchedule();
-	}else{
-		std::cout << "Unable to open file." << std::endl;
-	}
+	std::ifstream inputFile;
+	if (!inputFile.fail())
+		{
+			inputFile.open(fileName);
+			JobShop jobs(inputFile);
+			jobs.createSchedule();
+		} else
+		{
+			std::cout << "Failed to open file: " << fileName << std::endl;
+			return 1;
+		}
 	return 0;
 }
 

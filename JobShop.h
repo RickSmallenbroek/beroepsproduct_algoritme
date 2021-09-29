@@ -7,20 +7,33 @@
 
 #ifndef JOBSHOP_H_
 #define JOBSHOP_H_
+
 #include <iostream>
 #include <vector>
+
 #include "Job.h"
 #include "Machine.h"
 
 class JobShop {
 public:
-	//Constructors & Destructors
+	/**
+	*
+	*/
 	JobShop() = delete;
-	JobShop(std::ifstream& input);
+	/**
+	*
+	*/
+	JobShop(std::ifstream& file);
+	/**
+	* Destructor of jobshop
+	*/
 	virtual ~JobShop();
 
 	//Methods
 	void createSchedule();
+
+	void makeMachines(unsigned int machineCount);
+
 	void assignMachines();
 	unsigned short getLeastSlackJob(std::vector<unsigned short>& conflictingJobs);
 	void endFinishedTasks();
