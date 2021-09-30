@@ -17,11 +17,11 @@
 class JobShop {
 public:
 	/**
-	*
+	* Default constructor of JobShop (deleted)
 	*/
 	JobShop() = delete;
 	/**
-	*
+	* JobShop constructor with arguments
 	*/
 	JobShop(std::ifstream& file);
 	/**
@@ -29,18 +29,36 @@ public:
 	*/
 	virtual ~JobShop();
 
-	//Methods
-	void createSchedule();
-
+	/*
+	 * @param machineCount is the amount of machines needed
+	 * @return an amount of machines is created equal to amount of machines needed
+	 */
 	void makeMachines(unsigned int machineCount);
-
+	/*
+	 * @return schedule is is created and the output is printed to the console
+	 */
+	void createSchedule();
+	/*
+	 * @return needed tasks are started and corresponding machines are set to busy
+	 */
 	void assignMachines();
+	/*
+	 * @param conflictingJobs is a vector of jobs needing the same machine
+	 * @return the index of the job with the highest priority
+	 */
 	unsigned short getLeastSlackJob(std::vector<unsigned short>& conflictingJobs);
+	/*
+	 * @return tasks that need to be closed are closed and corresponding machines are freed
+	 */
 	void endFinishedTasks();
+	/*
+	 * @return the jobId's, start times and end times are printed
+	 */
 	void printJobShop();
-	void testCheck();
 
-	//Getters & Setters
+	/*
+	 * @return the vector of jobs in jobShop
+	 */
 	const std::vector<Job>& getJobs() const;
 
 private:

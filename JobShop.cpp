@@ -122,7 +122,6 @@ void JobShop::assignMachines() {
 	}
 }
 
-//Hij loopt door de gegeven Jobs om daar de Job die nog het langst te gaan heeft terug te geven.
 unsigned short JobShop::getLeastSlackJob(
 		std::vector<unsigned short> &conflictingJobs) {
 	unsigned short longestJob = conflictingJobs[0];
@@ -163,19 +162,3 @@ void JobShop::printJobShop() {
 const std::vector<Job>& JobShop::getJobs() const {
 	return Jobs;
 }
-
-void JobShop::testCheck() {
-	for (unsigned long long i = 0; i < Machines.size(); ++i) {
-		std::cout << Machines[i].getId() << " - " << Machines[i].isUsed()
-				<< std::endl;
-	}
-
-	std::cout << "Jobs:" << std::endl;
-
-	for (unsigned long long i = 0; i < Jobs.size(); i++) {
-		std::cout << i << ": " << Jobs[i].getTasks()[0].getMachineId() << " - "
-				<< Jobs[i].getTotalRemainingDuration() << " - "
-				<< Jobs[i].getTasks()[0].getEndTime() << std::endl;
-	}
-}
-

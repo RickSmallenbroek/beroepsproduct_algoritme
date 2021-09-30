@@ -19,7 +19,6 @@ Task::Task(const Task &rhs)
 }
 
 Task::~Task() {
-	// TODO Auto-generated destructor stub
 }
 
 unsigned short Task::getDuration() const {
@@ -34,7 +33,6 @@ unsigned long long Task::getEndTime() const {
 	return endTime;
 }
 
-//Deze functie berekend en zet de einstijd van een Task met de megegeven huidige tijd.
 void Task::setEndTime(unsigned long long startTime) {
 	this->endTime = startTime + duration;
 }
