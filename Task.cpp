@@ -34,6 +34,7 @@ unsigned long long Task::getEndTime() const {
 	return endTime;
 }
 
+//Deze functie berekend en zet de einstijd van een Task met de megegeven huidige tijd.
 void Task::setEndTime(unsigned long long startTime) {
 	this->endTime = startTime + duration;
 }
