@@ -29,15 +29,15 @@ JobShop::JobShop(std::ifstream &file) :
 	std::sregex_iterator end;
 	std::smatch match = *next;
 	std::string jobCountString = match.str(0);
-	unsigned int jobsCount = stoi(jobCountString);
+	unsigned short jobsCount = static_cast<unsigned short>(stoi(jobCountString));
 	++next;
 	std::smatch matchb = *next;
 	std::string machinesCountString = matchb.str(0);
-	unsigned int machinesCount = stoi(machinesCountString);
+	unsigned short machinesCount = static_cast<unsigned short>(stoi(machinesCountString));
 	makeMachines(machinesCount);
 
-	std::vector<unsigned int> machines;
-	std::vector<unsigned int> durations;
+	std::vector<unsigned short> machines;
+	std::vector<unsigned short> durations;
 	for (unsigned char x = 0; x < jobsCount; ++x) {
 		std::string regel;
 		std::getline(file, regel);
@@ -49,13 +49,13 @@ JobShop::JobShop(std::ifstream &file) :
 
 			std::smatch match = *next;
 			std::string aString = match.str(0);
-			unsigned int machine = stoi(aString);
+			unsigned short machine = static_cast<unsigned short>(stoi(aString));
 			++next;
 			machines.push_back(machine);
 
 			std::smatch matchb = *next;
 			std::string bString = matchb.str(0);
-			unsigned int duration = stoi(bString);
+			unsigned short duration = static_cast<unsigned short>(stoi(bString));
 			durations.push_back(duration);
 
 			++order;

@@ -16,7 +16,7 @@
 Job::Job() {
 }
 
-Job::Job(const std::vector<unsigned int>& machines, const std::vector<unsigned int>& durations) {
+Job::Job(const std::vector<unsigned short>& machines, const std::vector<unsigned short>& durations) {
 	nextTask = 0;
 	startTime = 0;
 	endTime = 0;
@@ -33,11 +33,11 @@ unsigned short Job::getNextTask() const{
 	return nextTask;
 }
 
-unsigned int Job::getNextMachineId() {
+unsigned short Job::getNextMachineId() {
 	return Tasks.at(nextTask).getMachineId();
 }
 
-unsigned int Job::getNextTaskDuration() {
+unsigned short Job::getNextTaskDuration() {
 	return Tasks.at(nextTask).getDuration();
 }
 

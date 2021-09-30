@@ -8,7 +8,7 @@
 #include "Task.h"
 #include <iostream>
 
-Task::Task(const unsigned int a_machineId, const unsigned int a_duration)
+Task::Task(const unsigned short a_machineId, const unsigned short a_duration)
 :machineId(a_machineId), duration(a_duration), endTime(0), taskCompleted(false)
 {
 }
@@ -22,11 +22,11 @@ Task::~Task() {
 	// TODO Auto-generated destructor stub
 }
 
-unsigned int Task::getDuration() const {
+unsigned short Task::getDuration() const {
 	return duration;
 }
 
-unsigned int Task::getMachineId() const {
+unsigned short Task::getMachineId() const {
 	return machineId;
 }
 
