@@ -10,20 +10,41 @@
 
 class Machine {
 public:
-	//Constructor & Destructor
+	/*
+	 * Default constructor
+	 */
 	Machine();
+	/*
+	 * Constructor with parameter
+	 */
 	Machine(const unsigned short a_id);
+	/*
+	 * Deconstructor
+	 */
 	virtual ~Machine();
-
-	//Operators
+	/*
+	 * @return parameter boolean
+	 * Operator ==
+	 */
 	bool operator==(const Machine& rhs) const;
-
-	//Getters & Setters
+	/*
+	 * @return parameter boolean
+	 * isUsed() checks if a machine is used
+	 */
 	bool isUsed() const;
+	/*
+	 * @return parameter unsigned short
+	 * getId() gets the id of a machine
+	 */
 	unsigned short getId() const;
+	/*
+	 * setUsed() sets a mechine on used
+	 */
 	void setUsed(bool used);
-
 private:
+	/*
+	 * Attributes
+	 */
 	unsigned short id;
 	bool used;
 };
