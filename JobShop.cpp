@@ -36,9 +36,9 @@ JobShop::JobShop(std::ifstream &file) :
 	unsigned short machinesCount = static_cast<unsigned short>(stoi(machinesCountString));
 	makeMachines(machinesCount);
 
-	std::vector<unsigned short> machines;
-	std::vector<unsigned short> durations;
 	for (unsigned char x = 0; x < jobsCount; ++x) {
+		std::vector<unsigned short> machines;
+		std::vector<unsigned short> durations;
 		std::string regel;
 		std::getline(file, regel);
 		unsigned char order = 0;

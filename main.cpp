@@ -22,8 +22,7 @@ int main(int argc, char **argv) {
 	}
 	else
 	{
-//		return 1;
-		fileName = "input.txt";
+		return 1;
 	}
 
 	std::ifstream inputFile;
