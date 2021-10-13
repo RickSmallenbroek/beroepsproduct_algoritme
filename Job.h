@@ -17,7 +17,7 @@ public:
 	/*
 	 * Default constructor
 	 */
-	Job();
+	Job() = delete;
 	/*
 	 * Constructor with argument machines en duration
 	 */

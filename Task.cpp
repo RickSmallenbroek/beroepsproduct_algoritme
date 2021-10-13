@@ -13,11 +13,6 @@ Task::Task(const unsigned short a_machineId, const unsigned short a_duration)
 {
 }
 
-Task::Task(const Task &rhs)
-: machineId(rhs.getMachineId()), duration(rhs.getDuration()), endTime(rhs.getEndTime()), taskCompleted(rhs.isTaskCompleted())
-{
-}
-
 Task::~Task() {
 }
 

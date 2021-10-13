@@ -13,9 +13,6 @@
 #include <map>
 #include <Algorithm>
 
-Job::Job() {
-}
-
 Job::Job(const std::vector<unsigned short>& machines, const std::vector<unsigned short>& durations) {
 	nextTask = 0;
 	startTime = 0;
